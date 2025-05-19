@@ -1,31 +1,20 @@
-package com.example.bhakyaPack.Model;
+package com.example.bhakyaPack.DTO;
 
 
-
-public class AddressBookmodel {
-    private int id;
+public class AddressBookDTO {
     private String name;
     private String address;
     private String phone;
 
-    public AddressBookmodel() {}
+    public AddressBookDTO() {}
 
-    public AddressBookmodel(int id, String name, String address, String phone) {
-        this.id = id;
+    public AddressBookDTO(String name, String address, String phone) {
         this.name = name;
         this.address = address;
         this.phone = phone;
     }
 
-    // Getters & Setters
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
+    // Getters and Setters
     public String getName() {
         return name;
     }
