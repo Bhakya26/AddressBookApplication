@@ -1,35 +1,55 @@
 package com.example.bhakyaPack.Service;
 
 
+
 import com.example.bhakyaPack.DTO.AddressBookDTO;
+import com.example.bhakyaPack.Model.AddressBookmodel;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
 
 @Service
 public class AddressBookService implements AddressBookServiceInt {
 
+    private final List<AddressBookmodel> addressList = new ArrayList<>();
+    private int idCounter = 1;
+
     @Override
-    public String createEntry(AddressBookDTO dto) {
-        return "Service: Created entry for " + dto.getName() + ", " + dto.getAddress() + ", " + dto.getPhone();
+    public AddressBookmodel createEntry(AddressBookDTO dto) {
+        AddressBookmodel entry = new AddressBookmodel(idCounter++, dto.getName(), dto.getAddress(), dto.getPhone());
+        addressList.add(entry);
+        return entry;
     }
 
     @Override
-    public String getEntryById(int id) {
-        return "Service: Retrieved entry with ID = " + id;
+    public AddressBookmodel getEntryById(int id) {
+        return addressList.stream()
+                .filter(e -> e.getId() == id)
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
-    public String getAllEntries() {
-        return "Service: Returned all address book entries.";
+    public List<AddressBookmodel> getAllEntries() {
+        return addressList;
     }
 
     @Override
-    public String updateEntry(int id, AddressBookDTO dto) {
-        return "Service: Updated entry ID = " + id + " to Name = " + dto.getName() +
-                ", Address = " + dto.getAddress() + ", Phone = " + dto.getPhone();
+    public AddressBookmodel updateEntry(int id, AddressBookDTO dto) {
+        AddressBookmodel existing = getEntryById(id);
+        if (existing != null) {
+            existing.setName(dto.getName());
+            existing.setAddress(dto.getAddress());
+            existing.setPhone(dto.getPhone());
+        }
+        return existing;
     }
 
     @Override
-    public String deleteEntry(int id) {
-        return "Service: Deleted entry with ID = " + id;
+    public void deleteEntry(int id) {
+        addressList.removeIf(e -> e.getId() == id);
     }
 }
