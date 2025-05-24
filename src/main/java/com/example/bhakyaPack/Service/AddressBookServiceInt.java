@@ -1,17 +1,14 @@
 package com.example.bhakyaPack.Service;
 
-
-
+import com.example.bhakyaPack.DTO.*;
 import com.example.bhakyaPack.Model.AddressBookmodel;
-import com.example.bhakyaPack.DTO.AddressBookDTO;
-import java.util.*;
 
-
+import java.util.List;
 
 public interface AddressBookServiceInt {
-    AddressBookmodel createEntry(AddressBookDTO dto);
-    AddressBookmodel getEntryById(int id);
-    List<AddressBookmodel> getAllEntries();
-    AddressBookmodel updateEntry(int id, AddressBookDTO dto);
-    void deleteEntry(int id);
+    AddressBookmodel addAddress(AddressBookDTO dto);
+    List<AddressBookmodel> getAll();
+    AddressBookmodel getById(int id);
+   AddressBookmodel update(int id, AddressBookDTO dto);
+    void delete(int id);
 }
